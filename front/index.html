@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Mascarilla</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    
+    <main>
+      <h1 class="visually-hidden">Heroes examples</h1>
+    
+      <div class="px-4 py-5 my-5 text-center">
+        <h2>Verificar uso de mascarilla con la cámara</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <video id="camera" width="640" height="480" autoplay></video>
+        <canvas id="snapshot" width="640" height="480" style="display:none;"></canvas>
+            </div>
+            <div class="col-md-6">
+                <div id="prediction-result">
+                    <img src="" alt="" id="foto" style="margin-top: 100px;">
+                </div>
+            </div>
+        </div>
+      </div>
+    </main>
+</body>
+    
+
+    <script>
+        const video = document.getElementById('camera');
+        const canvas = document.getElementById('snapshot');
+        const context = canvas.getContext('2d');
+
+        // Acceder a la cámara
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: true }).then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+            });
+        }
+
+        // Función para capturar imagen y enviar a la API
+        function captureAndPredict() {
+            context.drawImage(video, 0, 0, 640, 480);
+            canvas.toBlob(function(blob) {
+                let formData = new FormData();
+                formData.append('file', blob, 'snapshot.png');
+
+                $.ajax({
+                    url: "http://localhost:8000/predict",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        let result = data['prediction'] === 1 ? "con.png" : "sin.png";
+                        $("#foto").attr("src",result)
+                    },
+                    error: function(error) {
+                        console.error("Error al procesar la imagen:", error);
+                    }
+                });
+            });
+        }
+
+        // Llamar a la función cada segundo
+        setInterval(captureAndPredict, 500);
+    </script>
+</body>
+
+</html>

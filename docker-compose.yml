@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  backend:
+    build: ./back
+    ports:
+      - "8000:5000"
+    volumes:
+      - './models/:/app/models/'
+  frontend:
+    image: nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./front/:/usr/share/nginx/html:ro
+    depends_on:
+      - backend
+  training:
+    build: ./train
+    volumes:
+      - './train/train.py:/app/train.py'
+      - './models/:/app/models/'
+      - './images/:/app/images/'
