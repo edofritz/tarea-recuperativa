@@ -12,7 +12,9 @@ Para levantar el proyecto debe ejecutar el siguiente comando dentro de la raíz 
 
 Esto levantará 3 contenedores
 
-Una vez levantados los contenedores podemos acceder a la aplicación ingresando al enlace http://localhost:8080
+Una vez levantados los contenedores podemos acceder a la aplicación ingresando al enlace http://localhost:8054
+
+También se debe editar el archivo front/index.html cambiando la ip del servicio backend que en el caso de un ambiente local debe ser http://localhost:8050
 
 Para entrenar el modelo se debe ejecutar:
 
