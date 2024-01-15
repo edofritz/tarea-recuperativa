@@ -73,7 +73,7 @@ try:
 
     print(f"Precisión del modelo: {100 * correct / total}%")
 
-    model_name = "modelo_con_sin_mascarilla_all2.pth"
+    model_name = "modelo_con_sin_mascarilla_all.pth"
     torch.save(model, model_name)
     print(f"Modelo exportado en ", "models/" + model_name)
 except:
