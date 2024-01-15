@@ -8,7 +8,7 @@ import torch.nn.functional as F
 import os
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 transform = transforms.Compose(
     [
