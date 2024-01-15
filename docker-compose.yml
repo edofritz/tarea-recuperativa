@@ -4,13 +4,13 @@ services:
   backend:
     build: ./back
     ports:
-      - "8000:5000"
+      - "8053:5000"
     volumes:
       - './models/:/app/models/'
   frontend:
     image: nginx
     ports:
-      - "8080:80"
+      - "8054:80"
     volumes:
       - ./front/:/usr/share/nginx/html:ro
     depends_on:
