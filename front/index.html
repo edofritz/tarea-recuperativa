@@ -21,7 +21,6 @@
             <div class="col-md-6">
                 <video id="camera" width="640" height="480" autoplay></video>
         <canvas id="snapshot" width="640" height="480" style="display:none;"></canvas>
-        <Button id="go">Validar</Button>
             </div>
             <div class="col-md-6">
                 <div id="prediction-result">
@@ -77,11 +76,7 @@
         }
 
 
-        $(function () {
-            $("#go").click(function(){
-             captureAndPredict()
-            })
-        })
+        setInterval(captureAndPredict,1000)
 
         // Llamar a la función cada segundo
         
