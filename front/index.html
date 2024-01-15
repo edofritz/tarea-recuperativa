@@ -21,6 +21,7 @@
             <div class="col-md-6">
                 <video id="camera" width="640" height="480" autoplay></video>
         <canvas id="snapshot" width="640" height="480" style="display:none;"></canvas>
+        <Button id="go">Validar</Button>
             </div>
             <div class="col-md-6">
                 <div id="prediction-result">
@@ -34,6 +35,8 @@
     
 
     <script>
+
+      
         const video = document.getElementById('camera');
         const canvas = document.getElementById('snapshot');
         const context = canvas.getContext('2d');
@@ -45,6 +48,8 @@
                 video.play();
             });
         }
+
+        
 
         // Función para capturar imagen y enviar a la API
         function captureAndPredict() {
@@ -71,8 +76,15 @@
             });
         }
 
+
+        $(function () {
+            $("#go").click(function(){
+             captureAndPredict()
+            })
+        })
+
         // Llamar a la función cada segundo
-        setInterval(captureAndPredict, 6000);
+        
     </script>
 </body>
 
