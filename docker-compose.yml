@@ -1,23 +1,30 @@
 version: '3'
 
 services:
-  backend:
-    build: ./back
-    ports:
-      - "8050:5000"
-    volumes:
-      - './models/:/app/models/'
   frontend:
     image: nginx
     ports:
-      - "8054:80"
+      - "8000:80"
     volumes:
       - ./front/:/usr/share/nginx/html:ro
     depends_on:
       - backend
+  backend:
+    build: ./back
+    ports:
+      - "8001:5000"
+    volumes:
+      - './models/:/app/models/'
+      - './back/service.py:/app/service.py'
   training:
     build: ./train
     volumes:
       - './train/train.py:/app/train.py'
       - './models/:/app/models/'
       - './images/:/app/images/'
+  triton:
+    image: nvcr.io/nvidia/tritonserver:23.12-py3
+    platform: linux/amd64
+    volumes:
+      - './models:/models'
+    command: ["tritonserver", "--model-repository=/models"]

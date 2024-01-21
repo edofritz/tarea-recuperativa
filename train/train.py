@@ -73,8 +73,21 @@ try:
 
     print(f"Precisión del modelo: {100 * correct / total}%")
 
-    model_name = "modelo_con_sin_mascarilla_all.pth"
-    torch.save(model, model_name)
-    print(f"Modelo exportado en ", "models/" + model_name)
-except:
-    print("Ocurrió un error")
+    input_example = torch.randn(1, 3, 224, 224)
+
+    onnx_model_name = "models/modelo/1/" + "modelo_con_sin_mascarilla.onnx"
+    torch.onnx.export(
+        model,
+        input_example,
+        onnx_model_name,
+        export_params=True,
+        opset_version=10,
+        do_constant_folding=True,
+        input_names=["input"],
+        output_names=["output"],
+        dynamic_axes={"input": {0: "batch_size"}, "output": {0: "batch_size"}},
+    )
+
+    print(f"Modelo exportado en ", onnx_model_name)
+except Exception as e:
+    print(f"Ocurrió un error: {e}")

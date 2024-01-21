@@ -58,7 +58,7 @@
                 formData.append('file', blob, 'snapshot.png');
 
                 $.ajax({
-                    url: "http://137.184.185.56:8050/predict",
+                    url: "http://localhost:8001/predict",
                     type: "POST",
                     data: formData,
                     contentType: false,
@@ -75,10 +75,9 @@
             });
         }
 
-
-        setInterval(captureAndPredict,1000)
-
         // Llamar a la función cada segundo
+        //setInterval(captureAndPredict,1000)
+        captureAndPredict()
         
     </script>
 </body>

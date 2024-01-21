@@ -2,4 +2,4 @@ flask
 flask-cors
 torch
 torchvision
-Pillow
+tritonclient[http]
