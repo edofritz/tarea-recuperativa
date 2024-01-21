@@ -6,20 +6,23 @@ Docente : **Cristhian Aguilera**
 
 **Este proyecto requiere Docker y Docker compose**
 
-Para levantar el proyecto debe ejecutar el siguiente comando dentro de la raíz del proyecto:
+---
+
+Para levantar el proyecto se debe ejecutar el siguiente comando dentro de la raíz del proyecto:
 
 `docker-compose up -d`
 
-Esto levantará 3 contenedores
+Esto levantará 4 contenedores
 
-Una vez levantados los contenedores podemos acceder a la aplicación ingresando al enlace http://localhost:8054
+Una vez levantados los contenedores podemos acceder a la aplicación ingresando a
 
-También se debe editar el archivo front/index.html cambiando la ip del servicio backend que en el caso de un ambiente local debe ser http://localhost:8050
+http://localhost:8000
 
-Para entrenar el modelo se debe ejecutar:
+Para re entrenar el modelo debemos:
+
+    - Descomprimir el archivo images.zip reemplazando la carpeta images/
+    - Ejecutar el comando:
 
 `docker-compose exec training python train.py`
-
-Este comando generara los nuevos archivos de los modelos.
 
 **Eduardo Peña Fritz**
