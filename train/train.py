@@ -75,7 +75,9 @@ try:
 
     input_example = torch.randn(1, 3, 224, 224)
 
-    onnx_model_name = "models/modelo/1/" + "modelo_con_sin_mascarilla.onnx"
+    onnx_model_name = (
+        "models/modelo_con_sin_mascarilla/1/" + "modelo_con_sin_mascarilla.onnx"
+    )
     torch.onnx.export(
         model,
         input_example,

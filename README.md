@@ -21,6 +21,7 @@ http://localhost:8000
 Para re entrenar el modelo debemos:
 
     - Descomprimir el archivo images.zip reemplazando la carpeta images/
+    - Reiniciar el contenedor training con : docker-compose restart training
     - Ejecutar el comando:
 
 `docker-compose exec training python train.py`
